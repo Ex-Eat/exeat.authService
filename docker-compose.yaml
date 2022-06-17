@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+#  exeat.auth-service:
+#    container_name: 'exeat.auth-service'
+#    build: .
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - postgresdb
+#    depends_on:
+#      - postgresdb
+#    environment:
+#      - APP_ENV=PREPROD
+#      - DB_NAME=exeat
+#      - DB_HOST=postgresdb
+#      - DB_USER=postgres
+#      - DB_PASSWORD=root
+#      - DB_PORT=5432
+  postgresdb:
+    container_name: 'postgres'
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql_data:/data/db
+    environment:
+      - POSTGRES_USER=postgres # The PostgreSQL user (useful to connect to the database)
+      - POSTGRES_PASSWORD=root # The PostgreSQL password (useful to connect to the database)
+      - POSTGRES_DB=exeat # The PostgreSQL default database (automatically created at first launch)
+
+volumes:
+  postgresql_data: {}
