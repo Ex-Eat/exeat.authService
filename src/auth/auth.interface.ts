@@ -9,6 +9,11 @@ export interface JwtPayload {
     sub: number;
     id: number;
     email: string;
-    roles: RolesTypeEnum;
+    username: string;
+    role: RolesTypeEnum;
     createdAt: Date;
+    isDev: boolean;
+    isRestaurant: boolean;
+    isDeliverer: boolean;
+    isClient: boolean;
 }
