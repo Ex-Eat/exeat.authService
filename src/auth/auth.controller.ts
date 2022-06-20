@@ -5,7 +5,6 @@ import {RefreshTokensService} from "../refresh-tokens/refresh-tokens.service";
 import {RefreshTokensEntity} from "../refresh-tokens/refresh-tokens.entity";
 import dayjs = require("dayjs");
 import {UserEntity} from "../user/user.entity";
-import {JwtPayload} from "./auth.interface";
 
 @Controller('auth')
 export class AuthController {

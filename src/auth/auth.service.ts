@@ -18,8 +18,13 @@ export class AuthService {
             sub: user.id,
             id: user.id,
             email: user.email,
-            roles: user.roles,
-            createdAt: user.createdAt
+            username: user.username,
+            role: user.role,
+            createdAt: user.createdAt,
+            isClient: user.isClient,
+            isDeliverer: user.isDeliverer,
+            isRestaurant: user.isRestaurant,
+            isDev: user.isDev,
         };
 
         return this._jwtService.sign(payload, {expiresIn});
