@@ -8,4 +8,7 @@ export const config = {
     DB_USER: process.env.DB_USER || 'postgres',
     DB_PASSWORD: process.env.DB_PASSWORD || 'root',
     DB_NAME: process.env.DB_NAME || 'exeat',
+    APP_PORT: process.env.APP_PORT || '8200',
+    APP_NAME: process.env.APP_NAME || 'authService',
+    APP_HOST: process.env.APP_HOST || '127.0.0.1',
 };
