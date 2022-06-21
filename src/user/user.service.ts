@@ -5,8 +5,12 @@ import {Repository} from "typeorm";
 import {ICreateUserDto} from "./user.dto";
 import {RolesTypeEnum} from "../_enums/roles-type.enum";
 
+
 @Injectable()
 export class UserService {
+  constructor(
+    @InjectRepository(UserEntity) private _repository: Repository<UserEntity>,
+  ) {}
 
     constructor(@InjectRepository(UserEntity) private _repository: Repository<UserEntity>) {}
 
