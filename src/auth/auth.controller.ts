@@ -1,17 +1,11 @@
-import {
-  Body,
-  Controller,
-  Headers,
-  Post,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UserService } from '../user/user.service';
-import { RefreshTokensService } from '../refresh-tokens/refresh-tokens.service';
-import { RefreshTokensEntity } from '../refresh-tokens/refresh-tokens.entity';
-import dayjs = require('dayjs');
-import { UserEntity } from '../user/user.entity';
-import { JwtPayload } from './auth.interface';
+
+import {Body, Controller, Headers, Post, UnauthorizedException} from '@nestjs/common';
+import {AuthService} from "./auth.service";
+import {UserService} from "../user/user.service";
+import {RefreshTokensService} from "../refresh-tokens/refresh-tokens.service";
+import {RefreshTokensEntity} from "../refresh-tokens/refresh-tokens.entity";
+import dayjs = require("dayjs");
+import {UserEntity} from "../user/user.entity";
 
 @Controller('auth')
 export class AuthController {
