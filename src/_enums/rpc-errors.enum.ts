@@ -5,5 +5,6 @@ export enum RpcErrorsEnum {
     INVALID_TOKEN = 'Invalid Token.',
     NO_MATCHING_PASSWORD = 'Please provide a confirmation password matching the password.',
     TOKEN_EXPIRED = 'Token Expired.',
+    TOKEN_EXPIRED_REFRESH_NEEDED = 'Token Expired. Refresh Needed',
     WRONG_CREDENTIALS = 'Wrong Credentials.',
 }
