@@ -4,8 +4,9 @@
 name: CI - Main - Build, Tests & Docker
 
 on:
-  pull_request_target:
-    branches: [ "main" ]
+  pull_request:
+    branches:
+      - 'main'
 
 jobs:
   build:
