@@ -6,8 +6,7 @@ name: CI - Development - Build & Tests
 on:
   pull_request:
     branches:
-      - 'feature/**'
-      - 'hotfix/**'
+      - 'development'
 
 jobs:
   build:
