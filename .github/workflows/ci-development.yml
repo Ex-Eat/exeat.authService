@@ -4,8 +4,10 @@
 name: CI - Development - Build & Tests
 
 on:
-  pull_request_target:
-    branches: [ "development" ]
+  pull_request:
+    branches:
+      - 'feature/**'
+      - 'hotfix/**'
 
 jobs:
   build:
