@@ -1,4 +1,7 @@
 export enum RolesTypeEnum {
     ADMIN = 'ADMIN',
-    USER = 'USER'
+    CLIENT = 'CLIENT',
+    RESTAURANT = 'RESTAURANT',
+    DELIVERER = 'DELIVERER',
+    DEV = 'DEV'
 }

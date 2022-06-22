@@ -18,8 +18,7 @@ import {RefreshTokensModule} from "../refresh-tokens/refresh-tokens.module";
         RefreshTokensModule
     ],
     controllers: [AuthController],
-    providers: [AuthService],
-    exports: [AuthService]
+    providers: [AuthService]
 })
 export class AuthModule {
 }

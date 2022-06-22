@@ -6,8 +6,6 @@ import {
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken'
 import { config } from '../config';
-import {RpcException} from "@nestjs/microservices";
-import {RpcErrorsEnum} from "../_enums/rpc-errors.enum";
 
 @Injectable()
 export class JwtGuard implements CanActivate {
@@ -23,16 +21,16 @@ export class JwtGuard implements CanActivate {
 
     static async validateToken(auth: string) {
         if (auth.split(' ')[0] !== 'Bearer') {
-            throw new RpcException(RpcErrorsEnum.INVALID_TOKEN);
+            throw new UnauthorizedException('Invalid token');
         }
         const token = auth.split(' ')[1];
         try {
             return await jwt.verify(token, config.SECRET_KEY)
         } catch (e: any) {
             if (e.name === 'TokenExpiredError') {
-                throw new RpcException(RpcErrorsEnum.TOKEN_EXPIRED_REFRESH_NEEDED);
+                throw new UnauthorizedException('Token expired. Refresh needed');
             } else {
-                throw new RpcException(RpcErrorsEnum.INVALID_TOKEN);
+                throw new UnauthorizedException('Invalid token');
             }
         }
     }

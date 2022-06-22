@@ -1,10 +1,9 @@
-import {Column, Entity, JoinColumn, OneToMany, Unique} from 'typeorm';
+import {Column, Entity, JoinColumn, OneToMany} from 'typeorm';
+import { RolesTypeEnum } from '../_enums/roles-type.enum';
 import {PrimaryGeneratedColumn} from "typeorm/decorator/columns/PrimaryGeneratedColumn";
 import {RefreshTokensEntity} from "../refresh-tokens/refresh-tokens.entity";
-import {RolesTypeEnum} from "../_enums/roles-type.enum";
 
 @Entity({ name: 'user' })
-@Unique(["email", "username"])
 export class UserEntity {
 
     @PrimaryGeneratedColumn()
@@ -20,21 +19,9 @@ export class UserEntity {
     username: string;
 
     @Column()
-    role: RolesTypeEnum;
+    roles: RolesTypeEnum;
 
-    @Column({ default: false })
-    isClient: boolean;
-
-    @Column({ default: false })
-    isDev: boolean;
-
-    @Column({ default: false })
-    isRestaurant: boolean;
-
-    @Column({ default: false })
-    isDeliverer: boolean;
-
-    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ name: 'created_at' })
     createdAt: Date;
 
     @OneToMany(() => RefreshTokensEntity, refreshToken => refreshToken.user)
