@@ -1,5 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany} from 'typeorm';
-import { RolesTypeEnum } from '../_enums/roles-type.enum';
+import {Column, Entity, JoinColumn, ManyToOne} from 'typeorm';
 import {PrimaryGeneratedColumn} from "typeorm/decorator/columns/PrimaryGeneratedColumn";
 import {UserEntity} from "../user/user.entity";
 
@@ -12,7 +11,7 @@ export class RefreshTokensEntity {
     @Column({ unique: true })
     token: string;
 
-    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP'  })
+    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
     @Column({ name: 'expires_at' })
