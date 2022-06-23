@@ -8,12 +8,7 @@ import { UserModule } from './user/user.module';
 import { RefreshTokensModule } from './refresh-tokens/refresh-tokens.module';
 
 @Module({
-	imports: [
-		AuthModule,
-		TypeOrmModule.forRoot(ormConfig),
-		UserModule,
-		RefreshTokensModule,
-	],
+	imports: [AuthModule, TypeOrmModule.forRoot(ormConfig), UserModule, RefreshTokensModule],
 	controllers: [AppController],
 	providers: [AppService],
 })

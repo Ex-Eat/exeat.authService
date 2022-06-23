@@ -63,6 +63,7 @@ export class AuthController {
 
 	@MessagePattern({ cmd: 'auth/isLoggedIn' })
 	isLoggedIn(data: { accessToken: string }): boolean {
+		if (!data.accessToken) return false;
 		const token = this._service.verifyToken(data.accessToken);
 		return typeof token !== 'string';
 	}
