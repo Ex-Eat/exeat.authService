@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../user/user.entity';
 import { RpcException } from '@nestjs/microservices';
 import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
+import {IUserDto} from "../user/user.dto";
 
 @Injectable()
 export class AuthService {
@@ -47,5 +48,10 @@ export class AuthService {
 				throw new RpcException(RpcErrorsEnum.INVALID_TOKEN);
 			}
 		}
+	}
+
+	sanitize(user: UserEntity): IUserDto {
+		const {password, ...rest} = user;
+		return rest;
 	}
 }

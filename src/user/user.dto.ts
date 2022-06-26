@@ -11,6 +11,10 @@ export interface IUserDto {
 	id: number;
 	username: string;
 	email: string;
-	role: RolesTypeEnum[];
+	role: RolesTypeEnum;
+	isClient: boolean;
+	isDev: boolean;
+	isRestaurant: boolean;
+	isDeliverer: boolean;
 	createdAt: Date;
 }

@@ -9,6 +9,7 @@ import { MessagePattern, RpcException } from '@nestjs/microservices';
 import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
 import { JwtPayload } from './auth.interface';
 import { RolesTypeEnum } from '../_enums/roles-type.enum';
+import {ITokenDto} from "./ITokenDto";
 
 @Controller()
 export class AuthController {
@@ -19,12 +20,13 @@ export class AuthController {
 	) {}
 
 	@MessagePattern({ cmd: 'auth/login' })
-	async login(data: { email: string; password: string }): Promise<{ accessToken: string; refreshToken: string }> {
+	async login(data: { email: string; password: string }): Promise<ITokenDto> {
 		const user = await this._userService.findByEmail(data.email);
 		if (!user) throw new RpcException(RpcErrorsEnum.WRONG_CREDENTIALS);
 		const validatedUser = await this._service.validateUser(user, data.password);
 		if (!validatedUser) throw new RpcException(RpcErrorsEnum.WRONG_CREDENTIALS);
 		return {
+			user: this._service.sanitize(user),
 			accessToken: this._service.createToken(user),
 			refreshToken: await this._refreshTokenService.create(user),
 		};
