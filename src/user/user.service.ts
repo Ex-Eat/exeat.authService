@@ -5,7 +5,8 @@ import { Repository } from 'typeorm';
 import { ICreateUserDto } from './user.dto';
 import { RolesTypeEnum } from '../_enums/roles-type.enum';
 import * as bcrypt from 'bcrypt';
-
+import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class UserService {
@@ -24,6 +25,8 @@ export class UserService {
 	}
 
 	async create(user: ICreateUserDto): Promise<UserEntity> {
+		if (!user.cguAccepted) throw new RpcException(RpcErrorsEnum.WRONG_DATA);
+
 		const { confirmPassword, ...rest } = user;
 		const createdUser = await this._repository.create(rest);
 		createdUser.password = await this.hashPassword(createdUser.password);
@@ -57,14 +60,16 @@ export class UserService {
 	}
 
 	isEmailValid(email: string): boolean {
-		return new RegExp(/^[a-z0-9_]+\.[a-z0-9_]+\@[a-z0-9_]+\.[a-z]{2,4}$/).test(email);
+		return new RegExp(/^[a-z0-9_.]+\@[a-z0-9_]+\.[a-z]{2,4}$/).test(email);
 	}
 
-    isPasswordValid(password: string): boolean {
-        return this.hasPasswordNumber(password)
-            && this.hasPasswordSpecialChar(password)
-            && this.hasPasswordUpper(password)
-            && this.hasPasswordLower(password)
-            && this.isLongEnough(password)
-    }
+	isPasswordValid(password: string): boolean {
+		return (
+			this.hasPasswordNumber(password) &&
+			this.hasPasswordSpecialChar(password) &&
+			this.hasPasswordUpper(password) &&
+			this.hasPasswordLower(password) &&
+			this.isLongEnough(password)
+		);
+	}
 }

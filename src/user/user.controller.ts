@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 import { RefreshTokensService } from '../refresh-tokens/refresh-tokens.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
+import { ITokenDto } from '../auth/ITokenDto';
 
 @Controller('user')
 export class UserController {
@@ -22,10 +23,7 @@ export class UserController {
 	}
 
 	@MessagePattern({ cmd: 'user/create' })
-	async create(data: {
-		user: ICreateUserDto;
-		authorization: string;
-	}): Promise<{ accessToken: string; refreshToken: string }> {
+	async create(data: { user: ICreateUserDto; authorization: string }): Promise<ITokenDto> {
 		const { user, authorization } = data;
 		if (authorization) {
 			throw new ForbiddenException(RpcErrorsEnum.ALREADY_LOGGED_IN);
@@ -41,6 +39,7 @@ export class UserController {
 		}
 		const createdUser: UserEntity = await this._service.create(user);
 		return {
+			user: this._authService.sanitize(createdUser),
 			accessToken: this._authService.createToken(createdUser),
 			refreshToken: await this._refreshTokenService.create(createdUser),
 		};

@@ -1,10 +1,5 @@
 import { RolesTypeEnum } from '../_enums/roles-type.enum';
 
-export interface JwtToken {
-	token: string;
-	expiresIn: number;
-}
-
 export interface JwtPayload {
 	sub: number;
 	id: number;
@@ -12,6 +7,7 @@ export interface JwtPayload {
 	username: string;
 	role: RolesTypeEnum;
 	createdAt: Date;
+	birthDate: Date;
 	isDev: boolean;
 	isRestaurant: boolean;
 	isDeliverer: boolean;
