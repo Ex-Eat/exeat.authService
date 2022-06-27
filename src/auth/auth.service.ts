@@ -6,7 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../user/user.entity';
 import { RpcException } from '@nestjs/microservices';
 import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
-import {IUserDto} from "../user/user.dto";
+import { IUserDto } from '../user/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +21,7 @@ export class AuthService {
 			email: user.email,
 			username: user.username,
 			role: user.role,
+			birthDate: user.birthDate||null,
 			createdAt: user.createdAt,
 			isClient: user.isClient,
 			isDeliverer: user.isDeliverer,
@@ -51,7 +52,7 @@ export class AuthService {
 	}
 
 	sanitize(user: UserEntity): IUserDto {
-		const {password, ...rest} = user;
+		const { password, ...rest } = user;
 		return rest;
 	}
 }
