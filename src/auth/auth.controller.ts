@@ -9,7 +9,7 @@ import { MessagePattern, RpcException } from '@nestjs/microservices';
 import { RpcErrorsEnum } from '../_enums/rpc-errors.enum';
 import { JwtPayload } from './auth.interface';
 import { RolesTypeEnum } from '../_enums/roles-type.enum';
-import {ITokenDto} from "./ITokenDto";
+import { ITokenDto } from './ITokenDto';
 
 @Controller()
 export class AuthController {

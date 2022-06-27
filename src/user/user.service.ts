@@ -6,6 +6,7 @@ import { ICreateUserDto } from './user.dto';
 import { RolesTypeEnum } from '../_enums/roles-type.enum';
 import * as bcrypt from 'bcrypt';
 
+
 @Injectable()
 export class UserService {
 	constructor(@InjectRepository(UserEntity) private _repository: Repository<UserEntity>) {}
@@ -59,13 +60,11 @@ export class UserService {
 		return new RegExp(/^[a-z0-9_]+\.[a-z0-9_]+\@[a-z0-9_]+\.[a-z]{2,4}$/).test(email);
 	}
 
-	isPasswordValid(password: string): boolean {
-		return (
-			this.hasPasswordNumber(password) &&
-			this.hasPasswordSpecialChar(password) &&
-			this.hasPasswordUpper(password) &&
-			this.hasPasswordLower(password) &&
-			this.isLongEnough(password)
-		);
-	}
+    isPasswordValid(password: string): boolean {
+        return this.hasPasswordNumber(password)
+            && this.hasPasswordSpecialChar(password)
+            && this.hasPasswordUpper(password)
+            && this.hasPasswordLower(password)
+            && this.isLongEnough(password)
+    }
 }

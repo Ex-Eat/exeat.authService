@@ -1,4 +1,4 @@
-import {IUserDto} from "../user/user.dto";
+import { IUserDto } from '../user/user.dto';
 
 export interface ITokenDto {
 	user?: IUserDto;
