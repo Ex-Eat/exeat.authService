@@ -23,11 +23,8 @@ export class UserController {
 	}
 
 	@MessagePattern({ cmd: 'user/create' })
-	async create(data: { user: ICreateUserDto; authorization: string }): Promise<ITokenDto> {
-		const { user, authorization } = data;
-		if (authorization) {
-			throw new ForbiddenException(RpcErrorsEnum.ALREADY_LOGGED_IN);
-		}
+	async create(data: { user: ICreateUserDto }): Promise<ITokenDto> {
+		const { user } = data;
 		if (!this._service.isEmailValid(user.email)) {
 			throw new BadRequestException(RpcErrorsEnum.INVALID_EMAIL);
 		}
