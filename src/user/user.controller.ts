@@ -22,6 +22,14 @@ export class UserController {
 		return await this._service.find();
 	}
 
+
+	@MessagePattern({ cmd: 'user/update' })
+	async update(data: Partial<UserEntity>): Promise<UserEntity> {
+		const answer = await this._service.update(data)
+		return answer;
+	}
+
+
 	@MessagePattern({ cmd: 'user/create' })
 	async create(data: { user: ICreateUserDto }): Promise<ITokenDto> {
 		const { user } = data;

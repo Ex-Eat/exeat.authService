@@ -24,6 +24,12 @@ export class UserService {
 		return await this._repository.findOne({ where: { email } });
 	}
 
+	async update(update: Partial<UserEntity>): Promise<UserEntity> {
+		await this._repository.save(update);
+		const id = update['id']
+		return await this._repository.findOne({ where: { id } });
+	}
+
 	async create(user: ICreateUserDto): Promise<UserEntity> {
 		if (!user.cguAccepted) throw new RpcException(RpcErrorsEnum.WRONG_DATA);
 
