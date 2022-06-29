@@ -24,9 +24,13 @@ export class UserController {
 
 
 	@MessagePattern({ cmd: 'user/update' })
-	async update(data: Partial<UserEntity>): Promise<UserEntity> {
-		const answer = await this._service.update(data)
-		return answer;
+	async update(data: Partial<UserEntity>): Promise<ITokenDto> {
+		const user = await this._service.update(data)
+		return {
+			user: user,
+			accessToken: this._authService.createToken(user),
+			refreshToken: await this._refreshTokenService.create(user),
+		};
 	}
 
 
