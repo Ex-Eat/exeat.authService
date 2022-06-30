@@ -49,13 +49,11 @@ export class AuthController {
   async refreshToken(data: {
     refreshToken: string;
     accessToken: string;
-  }): Promise<{ accessToken: string; refreshToken: string }> {
+  }): Promise<{ user: Partial<UserEntity>, accessToken: string; refreshToken: string }> {
     const accessToken: any = this._service.verifyToken(data.accessToken, true);
     const refreshToken: RefreshTokensEntity =
       await this._refreshTokenService.get(data.refreshToken);
 
-    console.log(data);
-    console.log(accessToken, refreshToken);
 
     if (!('id' in accessToken)) {
       throw new UnauthorizedException(RpcErrorsEnum.INVALID_TOKEN);
@@ -67,7 +65,9 @@ export class AuthController {
       throw new RpcException(RpcErrorsEnum.TOKEN_EXPIRED);
     }
     const user: UserEntity = await this._userService.findOne(accessToken.id);
+    const { password, ...restUser } = user;
     return {
+      user: restUser,
       accessToken: this._service.createToken(user),
       refreshToken: await this._refreshTokenService.create(user),
     };
