@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RefreshTokensEntity } from './refresh-tokens.entity';
 import { UserEntity } from '../user/user.entity';
@@ -27,7 +27,17 @@ export class RefreshTokensService {
       expiresAt: dayjs().add(7, 'days').toDate(),
     });
     refreshToken.user = user;
-    const { token } = await this._repository.save(refreshToken);
-    return token;
+    return (await this._repository.save(refreshToken)).token;
+  }
+
+  async logout(refreshToken: string): Promise<UpdateResult> {
+    return this._repository
+      .createQueryBuilder()
+      .update(RefreshTokensEntity)
+      .set({
+        expiresAt: new Date(),
+      })
+      .where('token = :token', { token: refreshToken })
+      .execute();
   }
 }
