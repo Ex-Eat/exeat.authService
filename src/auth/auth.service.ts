@@ -21,7 +21,7 @@ export class AuthService {
 			email: user.email,
 			username: user.username,
 			role: user.role,
-			birthDate: user.birthDate||null,
+			birthDate: user.birthDate,
 			createdAt: user.createdAt,
 			isClient: user.isClient,
 			isDeliverer: user.isDeliverer,
